@@ -46,7 +46,7 @@ Django REST API
 
 ---
 
-## ▶️ How to Run Locally (Without Docker)
+## ▶️ How to Run Locally 
 
 ```bash
 python -m venv venv
