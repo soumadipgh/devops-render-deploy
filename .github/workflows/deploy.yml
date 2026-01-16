@@ -25,7 +25,7 @@ jobs:
           pip install flake8
 
       - name: Lint code
-        run: flake8 . || true
+        run: flake8 . || echo "Lint errors ignored"
 
       - name: Run tests
         env:
