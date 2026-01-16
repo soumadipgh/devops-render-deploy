@@ -1,60 +1,102 @@
-# DevOps Internship Assignment: Django Deployment
+# DevOps Internship Task – BaronTechLab
 
-Welcome to your practical assessment. You have been provided with a working Django Rest Framework (DRF) application. Your goal is to containerize this application, set up a CI/CD pipeline, and deploy it to a cloud provider.
-
-## Project Overview
-
-The project is a simple API with a single endpoint `/api/hello/` that returns a message from the database.
--   **Core**: Django 5.x
--   **Database**: SQLite (for simplicity, you may switch to PostgreSQL if you wish, but it's not required).
--   **Environment**: Uses `python-dotenv` for configuration.
-
-### Local Setup (for your reference)
-1.  `python -m venv venv`
-2.  `.\venv\Scripts\Activate` (Windows) or `source venv/bin/activate` (Mac/Linux)
-3.  `pip install -r requirements.txt`
-4.  Create a `.env` file based on your needed configuration (see `settings.py`).
-5.  `python manage.py migrate`
-6.  `python manage.py runserver`
+This project is part of a DevOps practical assessment. The goal is to demonstrate containerization, CI/CD, reverse proxy configuration, and cloud deployment using a Django REST Framework application.
 
 ---
 
-## Your Tasks
+## 📌 Project Overview
 
-### Task 1: Containerization (Docker)
-1.  Create a `Dockerfile` for the Django application.
-    -   Use a lightweight Python image (e.g., `python:3.11-slim`).
-    -   Use **Gunicorn** as the production application server (you may need to add it to `requirements.txt`).
-    -   Ensure static files are collected during the build or startup process.
-2.  Create a `docker-compose.yml` file to orchestrate the services locally.
-    -   Define the Django application service.
-    -   Define an **Nginx** service (see Task 2).
+The project is a simple Django REST API with one endpoint:
 
-### Task 2: Web Server (Nginx)
-1.  Configure Nginx as a reverse proxy.
-    -   It should forward traffic to the Gunicorn/Django container.
-    -   It should serve **static files** directly (Django should not serve static files in production).
-2.  Ensure standard security headers are set.
+Endpoint:
+/api/hello/
 
-### Task 3: CI/CD Pipeline (GitHub Actions)
-1.  Create a GitHub Actions workflow (`.github/workflows/deploy.yml`).
-2.  The pipeline should:
-    -   Lint the code (e.g., using `flake8`).
-    -   Run tests (use `python manage.py test`).
-    -   Build the Docker image.
+Functionality:
+Returns a message stored in the database.
 
-### Task 4: Deployment (Render)
-1.  Deploy the application to **Render** (render.com).
-    -   You can use Render's "Web Service" with the Docker runtime.
-2.  **Configuration**:
-    -   Ensure environment variables (`SECRET_KEY`, `DEBUG`) are set in Render's dashboard, NOT hardcoded in the image.
-    -   Ensure the database persists (or use Render's managed PostgreSQL if you prefer).
-3.  **Submission**:
-    -   The live URL (e.g., `https://your-app.onrender.com/api/hello/`) should return a successful response.
+---
 
-## Deliverables
--   A GitHub repository link with your code (Dockerfile, Nginx config, CI/CD workflow).
--   The live URL of the deployed application.
--   A brief text file or markdown document explaining your approach.
+## 🧰 Tech Stack
 
-Good luck!
+- Django 5.x
+- Django REST Framework
+- SQLite
+- Docker & Docker Compose
+- Nginx (Reverse Proxy)
+- GitHub Actions (CI/CD)
+- Render (Cloud Deployment)
+
+---
+
+## 🏗 Architecture Overview
+
+Client (Browser)
+↓
+Nginx (Docker Container)
+↓
+Gunicorn (Docker Container)
+↓
+Django REST API
+
+- Nginx handles incoming requests and serves static files  
+- Gunicorn runs the Django application  
+- Docker Compose manages multi-container setup  
+- GitHub Actions runs CI pipeline  
+- Render hosts the deployed Docker app
+
+---
+
+## ▶️ How to Run Locally (Without Docker)
+
+```bash
+python -m venv venv
+venv\Scripts\activate     # Windows
+
+pip install -r requirements.txt
+Create a  .env file:
+SECRET_KEY=your-secret-key
+DEBUG=True
+Run migrations and start server:
+python manage.py migrate
+python manage.py runserver
+Open:
+http://127.0.0.1:8000/api/hello/
+
+🐳 Run with Docker
+
+Build and start containers:
+
+docker compose up --build
+
+Open in browser:
+
+http://localhost/api/hello/
+
+🔄 CI/CD Pipeline (GitHub Actions)
+
+CI pipeline runs automatically on every push to main branch.
+
+Pipeline steps:
+
+Install dependencies
+
+Run flake8 linting
+
+Run Django tests
+
+Build Docker image
+
+Workflow file:
+.github/workflows/deploy.yml
+
+☁️ Deployment
+
+The project is deployed using Render with Docker.
+
+Environment variables used in production:
+
+SECRET_KEY
+
+DEBUG=False
+
+https://devops-intern-task-86yy.onrender.com
