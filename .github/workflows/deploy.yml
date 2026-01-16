@@ -25,7 +25,7 @@ jobs:
           pip install flake8
 
       - name: Lint code
-        run: echo "Lint step executed (flake8 skipped for legacy code)"
+        run: flake8 . || true
 
       - name: Run tests
         env:
