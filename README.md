@@ -99,4 +99,4 @@ SECRET_KEY
 
 DEBUG=False
 
-https://devops-intern-task-86yy.onrender.com
+https://devops-render-deploy.onrender.com
