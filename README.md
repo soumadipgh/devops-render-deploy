@@ -1,4 +1,4 @@
-# DevOps Internship Task – BaronTechLab
+# DevOps Task
 
 This project is part of a DevOps practical assessment. The goal is to demonstrate containerization, CI/CD, reverse proxy configuration, and cloud deployment using a Django REST Framework application.
 
